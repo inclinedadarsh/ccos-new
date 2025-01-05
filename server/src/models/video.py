@@ -6,4 +6,4 @@ class Video(BaseModel):
 
 
 class VideoOutput(Video):
-    transcript: str
+    blog: str
