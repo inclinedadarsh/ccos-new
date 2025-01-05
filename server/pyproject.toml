@@ -10,4 +10,5 @@ dependencies = [
     "pydantic>=2.10.4",
     "python-dotenv>=1.0.1",
     "uvicorn>=0.34.0",
+    "youtube-transcript-api>=0.6.3",
 ]
