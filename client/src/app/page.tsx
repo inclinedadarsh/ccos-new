@@ -1,5 +1,6 @@
 "use client";
 
+import Blog from "@/components/Blog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
@@ -9,6 +10,7 @@ import { useState } from "react";
 export default function Home() {
 	const [videoLink, setVideoLink] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const [blog, setBlog] = useState("");
 
 	const handleGenerateBlog = async () => {
 		setIsLoading(true);
@@ -17,6 +19,7 @@ export default function Home() {
 		});
 
 		if (response) {
+			setBlog(response.data.blog);
 			console.log(response);
 		} else {
 			console.error("Failed to generate blog");
@@ -56,6 +59,7 @@ export default function Home() {
 					)}
 				</Button>
 			</div>
+			{blog && <Blog blog={blog} />}
 		</main>
 	);
 }
