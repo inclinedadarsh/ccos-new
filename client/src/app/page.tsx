@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import axios from "axios";
 import { Loader2, Zap } from "lucide-react";
 import { useState } from "react";
 
@@ -10,27 +11,18 @@ export default function Home() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleGenerateBlog = async () => {
-		// Call the API to generate blog
-		// const response = await fetch("/api/generate-blog", {
-		// 	method: "POST",
-		// 	body: JSON.stringify({ videoLink }),
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// });
-
-		// if (response.ok) {
-		// 	const { blog } = await response.json();
-		// 	console.log(blog);
-		// } else {
-		// 	console.error("Failed to generate blog");
-		// }
 		setIsLoading(true);
-		setTimeout(() => {
-			console.log("Blog generated successfully!");
-			setIsLoading(false);
-		}, 2000);
-		console.log("Generating blog from video link:", videoLink);
+		const response = await axios.post("http://localhost:8000/videos/", {
+			id: videoLink,
+		});
+
+		if (response) {
+			console.log(response);
+		} else {
+			console.error("Failed to generate blog");
+		}
+
+		setIsLoading(false);
 	};
 
 	return (
