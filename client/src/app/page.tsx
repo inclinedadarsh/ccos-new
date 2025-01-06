@@ -59,7 +59,7 @@ export default function Home() {
 					)}
 				</Button>
 			</div>
-			{blog && <Blog blog={blog} />}
+			{blog && <Blog blog={blog} setBlog={setBlog} />}
 		</main>
 	);
 }
