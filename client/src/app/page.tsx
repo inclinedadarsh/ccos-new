@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { Loader2, Zap } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function Home() {
 	const [videoLink, setVideoLink] = useState("");
@@ -14,8 +15,30 @@ export default function Home() {
 
 	const handleGenerateBlog = async () => {
 		setIsLoading(true);
+
+		const youtubeRegex =
+			/^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/;
+		if (!youtubeRegex.test(videoLink)) {
+			toast.error("Invalid YouTube link", {
+				description: "Please enter a valid YouTube video link",
+			});
+			setIsLoading(false);
+			return;
+		}
+
+		const videoIdMatch = videoLink.match(
+			/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+		);
+		const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+		if (!videoId) {
+			console.log("Failed to extract video ID");
+			setIsLoading(false);
+			return;
+		}
+
 		const response = await axios.post("http://localhost:8000/videos/", {
-			id: videoLink,
+			id: videoId,
 		});
 
 		if (response) {
