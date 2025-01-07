@@ -53,8 +53,12 @@ export default function Home() {
 
 	return (
 		<main className="max-w-[1100px] mx-auto px-4 my-14">
-			<h1 className="text-3xl md:text-4xl lg:text-6xl font-bold text-center">
-				YouTube Video to Blog Generator
+			<h1 className="text-3xl md:text-6xl lg:text-6xl font-bold text-center max-w-[600px] mx-auto lg:leading-tight">
+				YouTube Video to{" "}
+				<span className="py-1 px-3 bg-gradient-to-br from-indigo-500 to-indigo-800 text-white shadow-md rounded-[8px] font-mono">
+					Blog
+				</span>{" "}
+				Generator
 			</h1>
 			<p className="text-gray-700 font-medium max-w-[400px] mx-auto text-center mt-8">
 				Just paste the link of any YouTube video link here, and get a
