@@ -5,7 +5,7 @@ from src.services.video import get_transcript, generate_blog
 router = APIRouter()
 
 
-@router.post("/videos/")
+@router.post("/videos/", response_model=VideoOutput)
 async def post_video(video: Video):
     transcript = get_transcript(video.id)
     blog = await generate_blog(transcript)
