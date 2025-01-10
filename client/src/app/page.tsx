@@ -37,14 +37,14 @@ export default function Home() {
 			return;
 		}
 
-		const API_URL = process.env.API_URL || "http://localhost:8000";
+		const API_URL =
+			process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 		const response = await axios.post(`${API_URL}/videos/`, {
 			id: videoId,
 		});
 
 		if (response) {
 			setBlog(response.data.blog);
-			console.log(response);
 		} else {
 			console.error("Failed to generate blog");
 		}
