@@ -37,7 +37,8 @@ export default function Home() {
 			return;
 		}
 
-		const response = await axios.post("http://localhost:8000/videos/", {
+		const API_URL = process.env.API_URL || "http://localhost:8000";
+		const response = await axios.post(`${API_URL}/videos/`, {
 			id: videoId,
 		});
 
