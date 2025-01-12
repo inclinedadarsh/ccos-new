@@ -12,6 +12,12 @@ async def options_video():
 
 @router.post("/videos/", response_model=VideoOutput)
 async def post_video(video: Video):
-    transcript = get_transcript(video.id)
-    blog = await generate_blog(transcript)
-    return {"blog": blog, "id": video.id}
+    print(f"Received video with id: {video.id}")
+    try:
+        transcript = get_transcript(video.id)
+        blog = await generate_blog(transcript)
+        return {"blog": blog, "id": video.id}
+    except Exception as e:
+        print(f"Error: {e}")
+        # return {"blog": "Error", "id": video.id}
+        raise

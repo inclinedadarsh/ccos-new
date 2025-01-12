@@ -1,5 +1,6 @@
 "use client";
 
+import { error } from "node:console";
 import Blog from "@/components/Blog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,17 +40,26 @@ export default function Home() {
 
 		const API_URL =
 			process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-		const response = await axios.post(`${API_URL}/videos/`, {
-			id: videoId,
-		});
 
-		if (response) {
+		try {
+			const response = await axios.post(
+				`${API_URL}/videos/`,
+				{
+					id: videoId,
+				},
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+					withCredentials: true,
+				},
+			);
 			setBlog(response.data.blog);
-		} else {
-			console.error("Failed to generate blog");
+		} catch (error) {
+			console.error("Failed to generate blog", error);
+		} finally {
+			setIsLoading(false);
 		}
-
-		setIsLoading(false);
 	};
 
 	return (
